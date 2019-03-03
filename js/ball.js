@@ -22,13 +22,46 @@ Ball.prototype.move = function(){
   this.y += this.dy;
 }
 
+// return true if the rectangle and circle are colliding
+Ball.prototype.rectCircleColliding = function (player) {
+  var distX = Math.abs(this.x - player.x - player.width/2);
+  var distY = Math.abs(this.y - player.y-player.height/2);
+
+  //console.log(player.color + ' distX: ' + distX + ', distY: ' + distY);
+
+  if (distX > (player.width/2 + this.radius)) { return false; }
+  if (distY > (player.height/2 + this.radius)) { return false; }
+
+  if (distX < (player.width/2)) { 
+    this.dx *= -1;
+    return true;
+  } 
+  if (distY < (player.height/2)) { 
+    this.dy *= -1;
+    return true;
+  }
+
+  var dx = distX - player.width/2;
+  var dy = distY - player.height/2;
+  //return (dx*dx + dy*dy <= (this.radius * this.radius));
+  if (dx*dx + dy*dy <= (this.radius * this.radius)) {
+    this.dy *= -1;
+  }
+}
+
 Ball.prototype.collision = function(){
+  // Colisión de la bola con las paredes
   if (this.y + this.dy > canvas.height - 2 * this.radius || this.y + this.dy < 2 * this.radius ) {
     this.dy *= -1; // Aleatorio???
   }
   if (this.x + this.dx > canvas.width - 2 * this.radius || this.x + this.dx < 0 + 2 * this.radius ) {
     this.dx *= -1; // Aleatorio???
   }
+  // Colisión de la bola con los coches
+  this.rectCircleColliding(player1);
+  this.rectCircleColliding(player2);
+  
+
 }
 
 Ball.prototype.goal = function() {
@@ -40,5 +73,5 @@ Ball.prototype.goal = function() {
     //console.log('P1 GOAL!!!');
     goalsP1 ++;
   }
-  //console.log(goalsP1 + ' : ' + goalsP2);
+  //console.log('P1: ' + goalsP1 + ' - P2: ' + goalsP2);
 }
