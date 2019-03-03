@@ -2,13 +2,14 @@ var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 canvas.height = 600;
 canvas.width = 800;
+var fps = 60;
 
 var goalsP1 = 0, goalsP2 = 0;
 //var isPause = false;
 
 var x = 200, y = 100;
-var player1 = new Player(x, y, canvas.width/6 - x/4, canvas.height/2 - y/2, 'green', 'player1');
-var player2 = new Player(x, y, canvas.width - (canvas.width/6 + x/4 + 100), canvas.height/2 - y/2, 'red', 'player2');
+var player1 = new Player(x, y, canvas.width/6 - x/4, canvas.height/2 - y/2, 'green');
+var player2 = new Player(x, y, canvas.width - (canvas.width/6 + x/4 + 100), canvas.height/2 - y/2, 'red');
 var ball = new Ball(canvas.width/2, canvas.height/2, 3, 2, '#00F');
 //var ball2 = new Ball(50, 50, 7, 3, '#F00');
 
@@ -33,8 +34,8 @@ function game() {
   //Pause()
   draw();
 
-  player1.movePlayer();
-  player2.movePlayer();
+  //player1.movePlayer();
+  movePlayer();
     
   ball.move();
   ball.collision();
@@ -45,4 +46,4 @@ function game() {
   //ball2.goal();
 }
 
-var interval = setInterval(game, 1000/60);
+var interval = setInterval(game, 1000/fps);

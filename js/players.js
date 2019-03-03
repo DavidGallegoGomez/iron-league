@@ -1,6 +1,4 @@
-function Player(width, height, x, y, color, name) {
-  //this.x = 50;
-  //this.y = 50;
+function Player(width, height, x, y, color) {
   this.isMovingRight = false;
   this.isMovingLeft = false;
   this.isMovingUp = false;
@@ -10,95 +8,81 @@ function Player(width, height, x, y, color, name) {
   this.x = x;
   this.y = y;
   this.color = color;
-  this.name = name;
 }
-
-Player.prototype.movePlayer = function() {
-
-  document.onkeydown = function(e) {
-    //console.log(e.key + ':' + e.keyCode);
-    //if (this.name = 'player1') {
-      switch(e.keyCode){
-        case 39:
-          if (this.name = 'player1')this.isMovingRight = true;
-          break
-        case 37:
-          if (this.name = 'player1')this.isMovingLeft = true;
-          break
-        case 38:
-          if (this.name = 'player1')this.isMovingUp = true;
-          break
-        case 40:
-          if (this.name = 'player1')this.isMovingDown = true;
-          break
-        case 68:
-          if (this.name = 'player2')this.isMovingRight = true;
-          break
-        case 65:
-          if (this.name = 'player2')this.isMovingLeft = true;
-          break
-        case 87:
-          if (this.name = 'player2')this.isMovingUp = true;
-          break
-        case 83:
-          if (this.name = 'player2')this.isMovingDown = true;
-          break
-        }
-      e.preventDefault();
-  }.bind(this)
-
-  document.onkeyup = function(e) {
-    this.isMovingRight = false;
-    this.isMovingLeft = false;
-    this.isMovingUp = false;
-    this.isMovingDown = false;
-    e.preventDefault();
-  }.bind(this)
-
-  if(this.isMovingRight === true && this.x + this.width <= canvas.width)this.x += 5;
-  if(this.isMovingLeft === true && this.x > 0)this.x -= 5;
-  if(this.isMovingUp === true && this.y >= 0)this.y -= 5;
-  if(this.isMovingDown === true && this.y + this.height <= canvas.height)this.y += 5;
-}
-
-/*Player.prototype.movePlayer2 = function() {
-
-  document.onkeydown = function(e) {
-    //console.log(e.key + ':' + e.keyCode);
-    //if (this.name = 'player1') {
-      switch(e.keyCode){
-        case 68:
-          this.isMovingRight = true;
-          break
-        case 65:
-          this.isMovingLeft = true;
-          break
-        case 87:
-          this.isMovingUp = true;
-          break
-        case 83:
-          this.isMovingDown = true;
-          break
-        }
-  }.bind(this)
-
-  document.onkeyup = function(e) {
-    this.isMovingRight = false;
-    this.isMovingLeft = false;
-    this.isMovingUp = false;
-    this.isMovingDown = false;
-  }.bind(this)
-
-  if(this.isMovingRight === true && this.x + this.width <= canvas.width)this.x += 5;
-  if(this.isMovingLeft === true && this.x > 0)this.x -= 5;
-  if(this.isMovingUp === true && this.y >= 0)this.y -= 5;
-  if(this.isMovingDown === true && this.y + this.height <= canvas.height)this.y += 5;
-}*/
 
 Player.prototype.draw = function() {
-  //ctx.clearRect(0,0,canvas.width,canvas.height)
   ctx.beginPath();
   ctx.fillStyle = this.color;
   ctx.fillRect(this.x, this.y, this.width, this.height)
   ctx.closePath();
+}
+
+function movePlayer() {
+  document.addEventListener('keydown', function(e) {
+    switch(e.keyCode) {
+      case 39:
+        player1.isMovingRight = true;
+        break
+      case 37:
+        player1.isMovingLeft = true;
+        break
+      case 38:
+        player1.isMovingUp = true;
+        break
+      case 40:
+        player1.isMovingDown = true;
+        break
+      case 68:
+        player2.isMovingRight = true;
+        break
+      case 65:
+        player2.isMovingLeft = true;
+        break
+      case 87:
+        player2.isMovingUp = true;
+        break
+      case 83:
+        player2.isMovingDown = true;
+        break
+    }
+  }.bind(this))
+
+  document.addEventListener('keyup', function(e) {
+    switch(e.keyCode) {
+      case 39:
+        player1.isMovingRight = false;
+        break
+      case 37:
+        player1.isMovingLeft = false;
+        break
+      case 38:
+        player1.isMovingUp = false;
+        break
+      case 40:
+        player1.isMovingDown = false;
+        break
+      case 68:
+        player2.isMovingRight = false;
+        break
+      case 65:
+        player2.isMovingLeft = false;
+        break
+      case 87:
+        player2.isMovingUp = false;
+        break
+      case 83:
+        player2.isMovingDown = false;
+        break
+    }
+  }.bind(this))
+
+  if(player1.isMovingRight === true && player1.x + player1.width <= canvas.width)  player1.x += 5;
+  if(player1.isMovingLeft  === true && player1.x > 0)                              player1.x -= 5;
+  if(player1.isMovingUp    === true && player1.y >= 0)                             player1.y -= 5;
+  if(player1.isMovingDown  === true && player1.y + player1.height <= canvas.height)player1.y += 5;
+
+  if(player2.isMovingRight === true && player2.x + player2.width <= canvas.width)  player2.x += 5;
+  if(player2.isMovingLeft  === true && player2.x > 0)                              player2.x -= 5;
+  if(player2.isMovingUp    === true && player2.y >= 0)                             player2.y -= 5;
+  if(player2.isMovingDown  === true && player2.y + player2.height <= canvas.height)player2.y += 5;
 }
