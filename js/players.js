@@ -89,25 +89,65 @@ Player.prototype.borderHit = function() {
   if (this.x + this.width >= canvas.width - this.dx && this.isMovingRight === true) { this.x = canvas.width - this.width; }
 }
 
-Player.prototype.otherPlayerHit = function(otherPlayer) {
+Player.prototype.otherPlayerHit = function(otherPlayer) { // DGG: ToDo, controlar los bordes del canvas
   if (this.x + this.width  > otherPlayer.x && this.x < otherPlayer.x + otherPlayer.width &&
       this.y + this.height > otherPlayer.y && this.y < otherPlayer.y + otherPlayer.height) {
-    console.log('CHOQUE');
+    ///console.log('CHOQUE');
     if(this.isMovingRight === true) { 
-      this.x        -= 2*this.dx;
-      otherPlayer.x += 2*this.dx;
+      this.x = otherPlayer.x - this.width; // DGG: Actualizo posición justo en el punto de colisión
+      //this.x        -= 1*this.dx; // DGG: Reboto el coche que choca
+      //otherPlayer.x += 1*this.dx; // DGG: Reboto el coche que recibe el choque
+      
+      //this.dx = 0; // DGG: Anulamos velocidades
+      //otherPlayer.dx = 0; // DGG: Anulamos velocidades
     }
     if(this.isMovingLeft  === true) { 
-      this.x        += 2*this.dx;
-      otherPlayer.x -= 2*this.dx;
+      this.x = otherPlayer.x + this.width;
+      //this.x        += 1*this.dx;
+      //otherPlayer.x -= 1*this.dx;
+      
+      //this.dx = 0; // DGG: Anulamos velocidades
+      //otherPlayer.dx = 0; // DGG: Anulamos velocidades
     }
     if(this.isMovingUp    === true) { 
-      this.y        += 2*this.dy;
-      otherPlayer.y -= 2*this.dy;
+      this.y = otherPlayer.y + this.height;
+      //this.y        += 1*this.dy;
+      //otherPlayer.y -= 1*this.dy;
+      
+      //this.dy = 0; // DGG: Anulamos velocidades
+      //otherPlayer.dy = 0; // DGG: Anulamos velocidades
     }
     if(this.isMovingDown  === true) { 
-      this.y        -= 2*this.dy;
-      otherPlayer.y += 2*this.dy;
+      this.y = otherPlayer.y - this.height;
+      //this.y        -= 1*this.dy;
+      //otherPlayer.y += 1*this.dy;
+      
+      //this.dy = 0; // DGG: Anulamos velocidades
+      //otherPlayer.dy = 0; // DGG: Anulamos velocidades
+    }
+  }
+}
+
+Player.prototype.ballHit = function(ball) {
+  if (this.x + this.width  > ball.x + ball.radius && this.x < ball.x + ball.radius &&
+      this.y + this.height > ball.y + ball.radius && this.y < ball.y + ball.radius) {
+  
+    if(this.isMovingRight === true) { 
+      this.x = ball.x + ball.radius - this.width - this.dx;
+      ball.dx *= -0.5;
+      console.log('SLOW!!');
+    }
+    if(this.isMovingLeft  === true) { 
+      //this.x = ball.x + ball.radius + this.width;
+      ball.dx *= -1;
+    }
+    if(this.isMovingUp    === true) { 
+      //this.y = ball.y + ball.radius + this.height;
+      ball.dy *= -1;
+    }
+    if(this.isMovingDown  === true) { 
+      //this.y = ball.y + ball.radius - this.height;
+      ball.dy *= -1;
     }
   }
 }
