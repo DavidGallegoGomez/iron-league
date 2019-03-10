@@ -1,3 +1,10 @@
+.myGame {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  vertical-align: center;
+}
+
 canvas {
   border: 2px solid black;
 }

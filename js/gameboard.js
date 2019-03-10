@@ -3,6 +3,8 @@ var ctx = canvas.getContext('2d');
 canvas.height = 600;
 canvas.width = 800;
 var fps = 30;
+var time = 0;
+var endGame = false;
 //var isPause = false;
 
 var goalsP1 = 0, goalsP2 = 0;
@@ -14,6 +16,7 @@ var goal = false;
   var player1 = new Player(x, y, canvas.width/6 - x/4, canvas.height/2 - y/2, 'green', 10, 10);
   var player2 = new Player(x, y, canvas.width - (canvas.width/6 + x/4 + 100), canvas.height/2 - y/2, 'red', 10, 10);
   var ball = new Ball(canvas.width/2, canvas.height/2, 0, 0, '#00F');
+  var clock = new Clock();
 //}
 
 
@@ -49,7 +52,7 @@ function hit() {
 
   //player1.ballHit(ball);
   //player2.ballHit(ball);
-
+//
   ball.collisionPoint(player1);
   ball.collisionPoint(player2);
   ball.collision();
@@ -64,11 +67,23 @@ function move() {
 //start();
 function game() {
   //Pause();
+  //console.log(time);
+  endMyGame()
   move();
   hit();
   draw();
   ball.goal();
   ball.drawScore();
+  clock.parseTime();
+  clock.drawTime();
 }
 
 var interval = setInterval(game, 1000/fps); // CAMBIAR POR requestAnimationFrame
+
+function endMyGame() {
+  if (endGame === true) {
+    clearInterval(interval);
+    alert('YOU WIN!!!');
+    // Falta poner ganador y puntuaciones globales
+  }
+}

@@ -23,6 +23,7 @@ Player.prototype.draw = function() {
 function listenKeys() {
   document.addEventListener('keydown', function(e) {
     var myKeyCode  =  e.keyCode || e.which || 0;
+    //console.log(myKeyCode);
     switch(myKeyCode) {
       case 39:
         player2.isMovingRight = true;
@@ -47,6 +48,10 @@ function listenKeys() {
         break
       case 83:
         player1.isMovingDown = true;
+        break
+      case 71: // Resetea la posición de la pelota (usado en etapas de depuración)
+        ball.x = canvas.width/2;
+        ball.y = canvas.height/2;
         break
     }
   }.bind(this))
