@@ -1,8 +1,16 @@
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
-canvas.height = 600;
-canvas.width = 800;
+var pathPolice = './images/police.png';
+var pathAmbulance = './images/ambulance.png';
+var pathBall = './images/ball1.png';
+//canvas.height = 600;
+//canvas.width = 800;
+
+canvas.height = document.body.clientHeight;
+canvas.width = document.body.clientWidth - 50;
+
 var fps = 30;
+var frames = 0;
 var time = 0;
 var endGame = false;
 //var isPause = false;
@@ -12,10 +20,11 @@ var goal = false;
 //var isPause = false;
 
 //function start() {
-  var x = 200, y = 100;
-  var player1 = new Player(x, y, canvas.width/6 - x/4, canvas.height/2 - y/2, 'green', 10, 10);
-  var player2 = new Player(x, y, canvas.width - (canvas.width/6 + x/4 + 100), canvas.height/2 - y/2, 'red', 10, 10);
-  var ball = new Ball(canvas.width/2, canvas.height/2, 0, 0, '#00F');
+  //var x = 200, y = 100;
+  var x = 128, y = 64;
+  var player1 = new Player(x, y, canvas.width/6 - x/4, canvas.height/2 - y/2, 'green', 10, 10, pathPolice);
+  var player2 = new Player(x, y, canvas.width - (canvas.width/6 + x/4 + 100), canvas.height/2 - y/2, 'red', 10, 10, pathAmbulance);
+  var ball = new Ball(canvas.width/2, canvas.height/2, 0, 0, '#00F', pathBall);
   var clock = new Clock();
 //}
 
@@ -36,9 +45,11 @@ var goal = false;
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height); // Meterlo en una función clear()???
+  drawPlayGround();
+  ball.draw();
   player1.draw();
   player2.draw();
-  ball.draw();
+  
   //ball.collisionPoint(player1);
   //ball.collisionPoint(player2);
 }
@@ -68,7 +79,8 @@ function move() {
 function game() {
   //Pause();
   //console.log(time);
-  endMyGame()
+  endMyGame();
+  frames++;
   move();
   hit();
   draw();

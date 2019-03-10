@@ -1,4 +1,4 @@
-function Player(width, height, x, y, color, dx, dy) {
+function Player(width, height, x, y, color, dx, dy, rutaImg) {
   this.isMovingRight = false;
   this.isMovingLeft = false;
   this.isMovingUp = false;
@@ -10,13 +10,37 @@ function Player(width, height, x, y, color, dx, dy) {
   this.color = color;
   this.dx = dx;
   this.dy = dy;
+  this.img = new Image();
+  this.img.src = rutaImg;
+
+  // número de imágenes diferentes
+  this.img.frames = 3;
+  this.img.frameIndex = 0;
 }
 
 Player.prototype.draw = function() {
-  ctx.beginPath();
-  ctx.fillStyle = this.color;
-  ctx.fillRect(this.x, this.y, this.width, this.height)
-  ctx.closePath();
+  /*ctx.beginPath();
+  //ctx.fillStyle = this.color;
+  //ctx.fillRect(this.x, this.y, this.width, this.height)
+
+  //var policeImg = new Image(); 
+	//policeImg.src = './images/policeAnimation/1.png';
+  ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+  ctx.closePath();*/
+
+  ctx.drawImage(
+    this.img,
+    this.img.frameIndex * Math.floor(this.img.width / this.img.frames),
+    0,
+    Math.floor(this.img.width / this.img.frames),
+    this.img.height,
+    this.x,
+    this.y,
+    this.width,
+    this.height
+  );
+
+  this.animateImg();
 }
 
 //function movePlayer(hit) {
@@ -164,6 +188,15 @@ Player.prototype.moveP = function() {
   if(this.isMovingUp    === true) { this.y -= this.dy; }
   if(this.isMovingDown  === true) { this.y += this.dy; }
 }
+
+Player.prototype.animateImg = function() {
+  if (frames % 15 === 0) {
+    this.img.frameIndex += 1;
+
+    // Si el frame es el último, se vuelve al primero
+    if (this.img.frameIndex > 2) this.img.frameIndex = 0;
+  }
+};
 
 function hitPlayers(player1, player2) {
   var hit = false;

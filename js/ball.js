@@ -1,20 +1,42 @@
-function Ball(x, y, dx, dy, color) {
+function Ball(x, y, dx, dy, color, rutaImg) {
   //this.x = 100;
   //this.y = 100;
   this.x = x;
   this.y = y;
   this.dx = dx; // Aleatorio???
   this.dy = dy; // Aleatorio???
-  this.radius = 25;
+  //this.radius = 25;
+  this.radius = 50;
   this.color = color;
+
+  this.img = new Image();
+  this.img.src = rutaImg;
+
+  // número de imágenes diferentes
+  this.img.frames = 10;
+  this.img.frameIndex = 0;
 };
 
 Ball.prototype.draw = function(){
-  ctx.beginPath();
+  /*ctx.beginPath();
   ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
   ctx.closePath();
   ctx.fillStyle = this.color;
-  ctx.fill();
+  ctx.fill();*/
+
+  ctx.drawImage(
+    this.img,
+    this.img.frameIndex * Math.floor(this.img.width / this.img.frames),
+    0,
+    Math.floor(this.img.width / this.img.frames),
+    this.img.height,
+    this.x - this.radius,
+    this.y - this.radius,
+    2 * this.radius,
+    2 * this.radius
+  );
+
+  this.animateImg();
 }
 
 Ball.prototype.move = function(){
@@ -176,15 +198,26 @@ Ball.prototype.drawScore = function() {
 }
 
 Ball.prototype.goal = function() {
-  if (this.x <= 52) { 
+  //if (this.x <= 52) {
+    if (this.x <= 2 * this.radius) {
     //console.log('P2 GOAL!!!');
     goalsP2 ++;
     restartGame();
   }
-  else if (this.x >= canvas.width - 52) { 
+  //else if (this.x >= canvas.width - 52) {
+    else if (this.x >= canvas.width - 2 * this.radius) {
     //console.log('P1 GOAL!!!');
     goalsP1 ++;
     restartGame();
   }
   //console.log('P1: ' + goalsP1 + ' - P2: ' + goalsP2);
 }
+
+Ball.prototype.animateImg = function() {
+  if (frames % 2 === 0) {
+    this.img.frameIndex += 1;
+
+    // Si el frame es el último, se vuelve al primero
+    if (this.img.frameIndex > 9) this.img.frameIndex = 0;
+  }
+};
