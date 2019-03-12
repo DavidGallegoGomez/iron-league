@@ -3,8 +3,6 @@ var ctx = canvas.getContext('2d');
 var pathPolice = './images/police.png';
 var pathAmbulance = './images/ambulance.png';
 var pathBall = './images/ball1.png';
-//canvas.height = 600;
-//canvas.width = 800;
 
 canvas.height = document.body.clientHeight;
 canvas.width = document.body.clientWidth - 50;
@@ -12,6 +10,8 @@ canvas.width = document.body.clientWidth - 50;
 var fps = 30;
 var frames = 0;
 var time = 0;
+var interval = null;
+var intervalClock = null;
 var endGame = false;
 //var isPause = false;
 
@@ -28,19 +28,6 @@ var goal = false;
   var clock = new Clock();
 //}
 
-
-//var ball2 = new Ball(50, 50, 7, 3, '#F00');
-
-//function Pause() { // Comprobar el funcionamiento!!!
-//  document.addEventListener('keydown', function(e) {
-//    switch(e.keyCode) {
-//      case 80: // Tecla 'P' para pausar
-//        isPause = !isPause
-//        isPause ? clearInterval(interval) : interval = setInterval(game, 1000/fps);
-//    }
-//  }.bind(this))
-//}
-
 // Miriam Mendez y Sonia RoCa (Servicio de Carreras)
 
 function draw() {
@@ -49,9 +36,6 @@ function draw() {
   ball.draw();
   player1.draw();
   player2.draw();
-  
-  //ball.collisionPoint(player1);
-  //ball.collisionPoint(player2);
 }
 
 function hit() {
@@ -61,9 +45,6 @@ function hit() {
   player1.borderHit();
   player2.borderHit();
 
-  //player1.ballHit(ball);
-  //player2.ballHit(ball);
-//
   ball.collisionPoint(player1);
   ball.collisionPoint(player2);
   ball.collision();
@@ -90,12 +71,29 @@ function game() {
   clock.drawTime();
 }
 
-var interval = setInterval(game, 1000/fps); // CAMBIAR POR requestAnimationFrame
+//var interval = setInterval(game, 1000/fps); // CAMBIAR POR requestAnimationFrame
 
 function endMyGame() {
   if (endGame === true) {
     clearInterval(interval);
-    alert('YOU WIN!!!');
+    ////clearInterval(intervalClock);
+    //console.log('YOU WIN!!!');
     // Falta poner ganador y puntuaciones globales
+    var classToHide = document.querySelector('.myGame');
+    classToHide.style.display = 'none';
+    var classToShow = document.querySelector('.endGame');
+    classToShow.style.display = 'flex';
   }
 }
+
+window.onload = function() {
+  document.getElementById("green-button").onclick = function() {
+  interval = setInterval(game, 1000/fps); // CAMBIAR POR requestAnimationFrame
+  intervalClock = setInterval(stopClock, 1000);
+  
+  var classToHide = document.querySelector('.beginGame');
+  classToHide.style.display = 'none';
+  var classToShow = document.querySelector('.myGame');
+  classToShow.style.display = 'flex';
+  };
+};

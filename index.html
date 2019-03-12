@@ -8,16 +8,32 @@
   <link rel="stylesheet" href="styles/css/style.css">
 </head>
 <body>
-  <div class="game-intro">
-    <img src="./images/logo.png" alt="logo" class="logo-img">
+  <div class='beginGame'>
+    <div class="game-intro">
+    <h1 class="title">IRON LEAGUE<h1>
     <br>
-    <button id="start-button">StartGame</button>
-    <p>Use the left and right arrow to control the car!</p>
-    <img src="./images/arrows.png" alt="mandos de juego" class="arrows-img">
+    <div class='redButton'>
+      <button id="green-button">Start</button>
+    </div>
+    <p>Try to score goal to rival!!!</p>
+    <div class="controls">
+      <div class="player-control">
+        <h3>PLAYER 1</h3>
+        <img src="./images/arrowKeys.png" alt="mandos de juego" class="arrows-img" width=100>
+      </div>
+      <div class="player-control">
+        <h3>PLAYER 2</h3>
+        <img src="./images/arrowKeys.png" alt="mandos de juego" class="arrows-img" width=100>
+      </div>
+    </div>
   </div>
+  </div>
+  
   <div class="myGame">
     <canvas id="canvas"></canvas>
   </div>
+
+  <div class='endGame'></div>
 
   <script type="text/javascript" src="js/background.js"></script>
   <script type="text/javascript" src="js/ball.js"></script>

@@ -3,11 +3,12 @@ function Clock() {
   this.min = 0;
 };
 
-var intervalClock = setInterval(drawClock, 1000);
+//var intervalClock = setInterval(drawClock, 1000);
 
-function drawClock() {
+function stopClock() {
   if (time === 90) {
     clearInterval(intervalClock);
+    //clearInterval(interval);
     endGame = true;
   }
   else { time++; }

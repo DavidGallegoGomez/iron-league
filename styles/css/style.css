@@ -1,5 +1,11 @@
 /* RESET de estilos */
 
+/* Importación de la fuente para la portada*/
+@font-face {
+  font-family: 'SoccerFont';
+  src: url('../../fonts/soccerFont.ttf')  format('truetype');
+}
+
 /* Para tener el máximo alto disponible */
 html {
   margin: 0;
@@ -8,6 +14,8 @@ html {
 }
 body {
   /*min-height: 100%;*/
+  
+  /*overflow: hidden;*/
   min-height: 90vh;
   background-image: url("../../images/background.jpg");
   background-position: 0px 0px;
@@ -16,8 +24,40 @@ body {
   position: relative;
 }
 
-.myGame {
+.beginGame {
+  diplay: flex;
+  /*display: none;*/
+}
+
+.controls {
   display: flex;
+  justify-content: space-around;
+}
+
+.title {
+  font-family: 'SoccerFont', sans-serif;
+  font-size: 500%;
+  text-align: center;
+  padding: 25px 0;
+}
+
+.beginGame p {
+  color: white;
+  text-align: center;
+  font-style: oblique;
+  font-size: 25px;
+  font-weight: 300;
+  line-height: 50%;
+}
+
+.beginGame h3 {
+  text-align: center;
+  font-size: x-large;
+}
+
+.myGame {
+  display: none;
+  /*display: flex;*/
   justify-content: center;
   align-items: center;
   padding: 25px 0;
@@ -29,11 +69,20 @@ canvas {
 
 body button {
   font-size: 30px;
-  background-color: #870007;
+  background-color: #567d46; /* DGG: color Grass Green */
   color: #fff;
   padding: 20px 40px;
   border: 0;
   box-shadow: 0;
   border-radius: 5px;
   margin-bottom: 20px;
+}
+
+.redButton {
+  display: flex;
+  justify-content: center;
+}
+
+.endGame {
+  display: none;
 }
