@@ -1,29 +1,19 @@
-function Ball(x, y, dx, dy, color, rutaImg) {
-  //this.x = 100;
-  //this.y = 100;
+function Ball(x, y, dx, dy, rutaImg) {
   this.x = x;
   this.y = y;
-  this.dx = dx; // Aleatorio???
-  this.dy = dy; // Aleatorio???
-  //this.radius = 25;
+  this.dx = dx;
+  this.dy = dy;
   this.radius = 50;
-  this.color = color;
 
   this.img = new Image();
   this.img.src = rutaImg;
 
-  // número de imágenes diferentes
+  // DGG: número de imágenes diferentes
   this.img.frames = 10;
   this.img.frameIndex = 0;
 };
 
 Ball.prototype.draw = function(){
-  /*ctx.beginPath();
-  ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
-  ctx.closePath();
-  ctx.fillStyle = this.color;
-  ctx.fill();*/
-
   ctx.drawImage(
     this.img,
     this.img.frameIndex * Math.floor(this.img.width / this.img.frames),
@@ -132,6 +122,8 @@ Ball.prototype.collisionPoint = function(player){
   //console.log('X: ' + pcmX + ', Y: ' + pcmY);
   var circleRectDist = Math.sqrt( (this.x - pcmX)**2 + (this.y - pcmY)**2 );
   if (circleRectDist <= this.radius) { 
+    var hitSound = new Audio('./sound/ball-bounce.mp3');
+    hitSound.play();
     //console.log('CHOCA LA BOLA!!');
     if (pcmX === player.x || pcmX === player.x + player.width) {
       this.dx *= -1;
@@ -199,8 +191,10 @@ Ball.prototype.drawScore = function() {
 
 Ball.prototype.goal = function() {
   //if (this.x <= 52) {
-    if (this.x <= 2 * this.radius) {
+  var hitSound = new Audio('./sound/sonic-goal.mp3');  
+  if (this.x <= 2 * this.radius) {
     //console.log('P2 GOAL!!!');
+    hitSound.play();
     goalsP2 ++;
     restartGame();
   }

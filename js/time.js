@@ -6,9 +6,11 @@ function Clock() {
 //var intervalClock = setInterval(drawClock, 1000);
 
 function stopClock() {
-  if (time === 90) {
+  if (time === 10) { // DGG: Duración oficial: 90 seg;
     clearInterval(intervalClock);
     //clearInterval(interval);
+    var hitSound = new Audio('./sound/buzzer.mp3');
+    hitSound.play();
     endGame = true;
   }
   else { time++; }

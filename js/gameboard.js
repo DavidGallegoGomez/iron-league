@@ -1,3 +1,5 @@
+// DGG: Se inicializan las variables globales del juego
+
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 var pathPolice = './images/police.png';
@@ -5,7 +7,7 @@ var pathAmbulance = './images/ambulance.png';
 var pathBall = './images/ball1.png';
 
 canvas.height = document.body.clientHeight;
-canvas.width = document.body.clientWidth - 50;
+canvas.width = document.body.clientWidth;
 
 var fps = 30;
 var frames = 0;
@@ -13,25 +15,22 @@ var time = 0;
 var interval = null;
 var intervalClock = null;
 var endGame = false;
-//var isPause = false;
 
 var goalsP1 = 0, goalsP2 = 0;
 var goal = false;
-//var isPause = false;
 
-//function start() {
-  //var x = 200, y = 100;
-  var x = 128, y = 64;
-  var player1 = new Player(x, y, canvas.width/6 - x/4, canvas.height/2 - y/2, 'green', 10, 10, pathPolice);
-  var player2 = new Player(x, y, canvas.width - (canvas.width/6 + x/4 + 100), canvas.height/2 - y/2, 'red', 10, 10, pathAmbulance);
-  var ball = new Ball(canvas.width/2, canvas.height/2, 0, 0, '#00F', pathBall);
-  var clock = new Clock();
-//}
+var x = 128, y = 64;
+var player1 = new Player(x, y, canvas.width/6 - x/4, canvas.height/2 - y/2, 'green', 10, 10, pathPolice);
+var player2 = new Player(x, y, canvas.width - (canvas.width/6 + x/4 + 100), canvas.height/2 - y/2, 'red', 10, 10, pathAmbulance);
+var ball = new Ball(canvas.width/2, canvas.height/2, 0, 0, pathBall);
+var clock = new Clock();
 
-// Miriam Mendez y Sonia RoCa (Servicio de Carreras)
+var allScores = new LocalStorageManager();
+
+// DGG: Funciones agrupadoras
 
 function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height); // Meterlo en una función clear()???
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawPlayGround();
   ball.draw();
   player1.draw();
@@ -56,10 +55,9 @@ function move() {
   ball.move();
 }
 
-//start();
+// DGG: Bucle principal del juego
+
 function game() {
-  //Pause();
-  //console.log(time);
   endMyGame();
   frames++;
   move();
@@ -71,24 +69,27 @@ function game() {
   clock.drawTime();
 }
 
-//var interval = setInterval(game, 1000/fps); // CAMBIAR POR requestAnimationFrame
+// DGG: Transición al terminar el juego
 
 function endMyGame() {
   if (endGame === true) {
     clearInterval(interval);
-    ////clearInterval(intervalClock);
-    //console.log('YOU WIN!!!');
-    // Falta poner ganador y puntuaciones globales
+    
     var classToHide = document.querySelector('.myGame');
     classToHide.style.display = 'none';
     var classToShow = document.querySelector('.endGame');
     classToShow.style.display = 'flex';
+    
+    allScores.setScore();
+
   }
 }
 
+// DGG: Transición al empezar el juego
+
 window.onload = function() {
-  document.getElementById("green-button").onclick = function() {
-  interval = setInterval(game, 1000/fps); // CAMBIAR POR requestAnimationFrame
+  document.getElementById("start-button").onclick = function() {
+  interval = setInterval(game, 1000/fps);
   intervalClock = setInterval(stopClock, 1000);
   
   var classToHide = document.querySelector('.beginGame');
@@ -96,4 +97,9 @@ window.onload = function() {
   var classToShow = document.querySelector('.myGame');
   classToShow.style.display = 'flex';
   };
+
+  document.querySelector('#restart-button').addEventListener('click', function() {
+    window.location.replace(''); // DGG: Refresca el navegador
+  });
+
 };

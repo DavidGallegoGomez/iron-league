@@ -122,6 +122,8 @@ Player.prototype.otherPlayerHit = function(otherPlayer) { // DGG: ToDo, controla
   if (this.x + this.width  > otherPlayer.x && this.x < otherPlayer.x + otherPlayer.width &&
       this.y + this.height > otherPlayer.y && this.y < otherPlayer.y + otherPlayer.height) {
     ///console.log('CHOQUE');
+    var hitSound = new Audio('./sound/glass-break.mp3');
+    hitSound.play();
     if(this.isMovingRight === true) { 
       this.x = otherPlayer.x - this.width; // DGG: Actualizo posición justo en el punto de colisión
       //this.x        -= 1*this.dx; // DGG: Reboto el coche que choca
@@ -163,8 +165,8 @@ Player.prototype.ballHit = function(ball) {
   
     if(this.isMovingRight === true) { 
       this.x = ball.x + ball.radius - this.width - this.dx;
-      ball.dx *= -0.5;
-      console.log('SLOW!!');
+      ball.dx *= -1; //0,5
+      //console.log('SLOW!!');
     }
     if(this.isMovingLeft  === true) { 
       //this.x = ball.x + ball.radius + this.width;
@@ -200,6 +202,7 @@ Player.prototype.animateImg = function() {
 
 function hitPlayers(player1, player2) {
   var hit = false;
+  var hitSound = new Audio('./sound/glass-break.mp3');
   if (player1.x                  <= player2.x + player2.width &&
       player1.x + player1.width  >= player2.x &&
       player1.y                  <= player2.y + player2.height &&
@@ -207,6 +210,7 @@ function hitPlayers(player1, player2) {
      // ¡colision detectada!
      //console.log('HIT!!!');
      hit = true;
+     hitSound.play();
  }
  return hit;
 }
