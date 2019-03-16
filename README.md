@@ -7,3 +7,7 @@
 
 ## Principales dificultades encontradas
 - Permitir de manera independiente y simultánea el control del juego a ambos jugadores mediante teclado.
+- Colisiones entre rectángulo - rectángulo y sobre todo entre rectángulo - círculo.
+- Gestión y presentación de las puntuaciones.
+- Autoplay de la música.
+- Sincronización de reloj de bucle de juego y tiempo real de juego.
