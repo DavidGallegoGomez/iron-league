@@ -1,57 +1,5 @@
 // Gestion del localStorage
 
-/*
-var localStorageManager  =  {
-  avaliableTypes : [ 'STRING', 'NUMBER', 'JSON' ],
-  _localStorage : localStorage || null,
-  _getItem : function(variable, myDefault, type) {
-    if ( this._localStorage === null 
-      || typeof variable === 'undefined' 
-      || !this._localStorage.hasOwnProperty( variable ) ) return myDefault;
-    
-    var value = this._localStorage.getItem( variable );
-
-    if ( typeof type === 'undefined' || this.avaliableTypes.indexOf(type) === -1 ) return value;
-    switch ( this.avaliableTypes.indexOf(type) ) {
-      case 0:
-        return value;
-        break;
-      case 1:
-        return parseFloat( value );
-        break;
-      case 2:
-        return JSON.parse( value );
-        break;
-
-      default:
-        return value;
-        break;
-    }
-  },
-  _setItem : function(variable, value, type) {
-    type = type || 'STRING';
-    if ( this._localStorage === null 
-      || typeof variable === 'undefined' ) return this; // Devuelve un reactivo (para poder seguir añadiendo cosas)
-    
-    switch ( this.avaliableTypes.indexOf(type) ) {
-      case 0:
-        this._localStorage.setItem( variable, value );
-        break;
-      case 1:
-        this._localStorage.setItem( variable, parseFloat( value ) );
-        break;
-      case 2:
-        this._localStorage.setItem( variable, JSON.stringify( value ) );
-        break;
-      default:
-        this._localStorage.setItem( variable, value );
-        break;
-    }
-    return this;
-  }
-}
-*/
-
 function LocalStorageManager() {
   this.avaliableTypes = [ 'STRING', 'NUMBER', 'JSON' ];
   this._localStorage = localStorage || null;
@@ -102,26 +50,9 @@ LocalStorageManager.prototype._setItem = function(variable, value, type) {
   return this;
 }
 
-
-/*LocalStorageManager.prototype.setScore = function() {
-  var timestamp = Date.now();
-  var myVariable = 'matchScore_' + timestamp;
-  var myDate = new Date().toLocaleString();
-  var myScores = [];
-  var matchScore = {
-    P1    : goalsP1,
-    P2    : goalsP2,
-    date  : myDate
-  }
-  this._setItem( myVariable, matchScore, 'JSON' );
-}*/
-
 LocalStorageManager.prototype.setScore = function() {
-  //var timestamp = Date.now();
-  //var myVariable = 'matchScore_' + timestamp;
   var myDate = new Date().toLocaleString();
   var myScores = this._getItem( 'matchScore', [], 'JSON' );
-  //console.log( myScores );
   var currentScore = {
     P1    : goalsP1,
     P2    : goalsP2,
@@ -144,7 +75,6 @@ function winner() {
 }
 
 function resultScreen(myScores) {
-  // Usar innerHTML???
   var parent = document.querySelector('.lastButton'); // DGG: Es el parent
   
   var h1Tag = document.createElement('h1');
@@ -175,12 +105,7 @@ function resultScreen(myScores) {
 
 }
 
-LocalStorageManager.prototype.getScore = function() {
-  console.log( matchScore );
-  this._setItem( 'matchScore' + myDate, matchScore, 'JSON' );
-}
-
-// Pintar pantalla de resultados
+// PRUEBAS:
 
 // new Date( new Date().getTime() )
 // localStorageManager._setItem( 'P1Goals', 0, 'NUMBER' )._setItem( 'P2Goals', 2, 'NUMBER' )
@@ -202,22 +127,6 @@ localStorageManager._getItem( 'P2Goals' )
 "2"
 localStorageManager._getItem( 'P3Goals', 0 )
 0
-localStorageManager._getItem( 'P3Goals', 30 )*/
+localStorageManager._getItem( 'P3Goals', 30 )
 
-
-
-/*console.log( goalsP2 );
-var myDate = new Date( new Date().getTime() );
-localStorageManager._setItem( 'fecha', myDate, 'JSON' );
-
-if (endGame === true) {
-  var myDate = new Date( new Date().getTime() );
-  var matchScore = {
-    P1    : goalsP1,
-    P2    : goalsP2,
-    date  : myDate
-  }
-  console.log( matchScore );
-  localStorageManager._setItem( 'matchScore', matchScore, 'JSON' );
-}*/
-
+*/

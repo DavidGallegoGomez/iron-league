@@ -3,12 +3,9 @@ function Clock() {
   this.min = 0;
 };
 
-//var intervalClock = setInterval(drawClock, 1000);
-
 function stopClock() {
-  if (time === 10) { // DGG: Duración oficial: 90 seg;
+  if (time === 90) { // DGG: Duración oficial: 90 seg;
     clearInterval(intervalClock);
-    //clearInterval(interval);
     var hitSound = new Audio('./sound/buzzer.mp3');
     hitSound.play();
     endGame = true;
@@ -17,7 +14,6 @@ function stopClock() {
 }
 
 Clock.prototype.drawTime = function() {
-  //var text = 'TIME: ' + time;
   var text;
   if (this.sec < 10) {
     text = 'TIME: 0' + this.min + ' : 0' + this.sec;
@@ -35,5 +31,4 @@ Clock.prototype.parseTime = function(){
     this.min = 1;
     this.sec -= 60;
   }
-  //console.log('0' + this.min + ' : ' + this.sec);
 }

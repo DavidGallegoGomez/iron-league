@@ -20,8 +20,8 @@ var goalsP1 = 0, goalsP2 = 0;
 var goal = false;
 
 var x = 128, y = 64;
-var player1 = new Player(x, y, canvas.width/6 - x/4, canvas.height/2 - y/2, 'green', 10, 10, pathPolice);
-var player2 = new Player(x, y, canvas.width - (canvas.width/6 + x/4 + 100), canvas.height/2 - y/2, 'red', 10, 10, pathAmbulance);
+var player1 = new Player(x, y, canvas.width/4, canvas.height/2 - y/2, 10, 10, pathPolice);
+var player2 = new Player(x, y, canvas.width - (canvas.width/4 + x), canvas.height/2 - y/2, 10, 10, pathAmbulance);
 var ball = new Ball(canvas.width/2, canvas.height/2, 0, 0, pathBall);
 var clock = new Clock();
 
@@ -85,7 +85,7 @@ function endMyGame() {
   }
 }
 
-// DGG: Transición al empezar el juego
+// DGG: Transición al empezar el juego o terminar
 
 window.onload = function() {
   document.getElementById("start-button").onclick = function() {

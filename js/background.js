@@ -1,3 +1,5 @@
+// DGG: Pinta el campo de juego usando canvas
+
 function drawPlayGround() {
   ctx.save();
   

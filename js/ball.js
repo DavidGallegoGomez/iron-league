@@ -34,34 +34,6 @@ Ball.prototype.move = function(){
   this.y += this.dy;
 }
 
-// return true if the rectangle and circle are colliding
-Ball.prototype.rectCircleColliding = function (player) {
-  var distX = Math.abs(this.x - player.x - player.width/2);
-  var distY = Math.abs(this.y - player.y - player.height/2);
-
-  //console.log(player.color + ' distX: ' + distX + ', distY: ' + distY);
-
-  if (distX > (player.width/2 + this.radius)) { return false; }
-  if (distY > (player.height/2 + this.radius)) { return false; }
-
-  if (distX < (player.width/2)) { 
-    this.dx *= -1;
-    return true;
-  } 
-  if (distY < (player.height/2)) { 
-    this.dy *= -1;
-    return true;
-  }
-
-  var dx = distX - player.width/2;
-  var dy = distY - player.height/2;
-  //return (dx*dx + dy*dy <= (this.radius * this.radius));
-  if (dx*dx + dy*dy <= (this.radius * this.radius)) {
-    this.dy *= -1;
-    this.dx *= -1; // PRUEBA
-  }
-}
-
 function posOK(x, y, player) {
   var OK = true;
   
@@ -100,18 +72,12 @@ Ball.prototype.collision = function(){
     this.dy *= -1;
   }
   if (this.x + this.dx > canvas.width - 1 * this.radius || this.x + this.dx < 0 + 1 * this.radius ) {
-    this.dx *= -1; // Aleatorio???
+    this.dx *= -1;
   }
-  // Colisión de la bola con los coches
-  ////this.rectCircleColliding(player1);
-  ////this.rectCircleColliding(player2);
-
-  //this.collisionPoint(player1);
-  //this.collisionPoint(player2);
 }
 
 Ball.prototype.collisionPoint = function(player){
-  var pcmX, pcmY;
+  var pcmX, pcmY; // DGG: Coordenadas del "Punto Más Cercano" entre círculo y rectángulo
   if (this.x >  player.x + player.width)                        { pcmX = player.x + player.width; }
   if (this.x <  player.x)                                       { pcmX = player.x; }
   if (this.x <= player.x + player.width && this.x >= player.x)  { pcmX = this.x; }
@@ -127,19 +93,17 @@ Ball.prototype.collisionPoint = function(player){
     //console.log('CHOCA LA BOLA!!');
     if (pcmX === player.x || pcmX === player.x + player.width) {
       this.dx *= -1;
-      if(player.isMovingRight === true) { // || player.isMovingLeft  === true) { 
+      if(player.isMovingRight === true) {
         this.dx = player.dx;
         this.dy = Math.floor(Math.random() * 3 + 1);
-        if ( posOK(this.x, this. y, player) ) {this.x = pcmX + 2 * this.radius; }
-        player.x -= 2 * this.radius; 
+        if ( posOK(this.x, this.y, player) ) {this.x = pcmX + 2 * this.radius; }
+        player.x -= this.radius; 
       }
       if(player.isMovingLeft  === true) { 
         this.dx = -player.dx;
         this.dy = Math.floor(Math.random() * 3 + 1);
-        //this.x -= this.dx;
-        if ( posOK(this.x, this. y, player) ) {this.x = pcmX - 2 * this.radius; }
-        //this.x = pcmX - 2 * this.radius;
-        player.x += 2 * this.radius;
+        if ( posOK(this.x, this.y, player) ) {this.x = pcmX - 2 * this.radius; }
+        player.x += this.radius;
       } 
     }
     if (pcmY === player.y || pcmY === player.y + player.height) {
@@ -147,22 +111,20 @@ Ball.prototype.collisionPoint = function(player){
       if(player.isMovingUp === true) { 
         this.dy = -player.dy;
         this.dx = Math.floor(Math.random() * 3 + 1);
-        //this.y -= this.dy;
-        if ( posOK(this.x, this. y, player) ) { this.y = pcmY - 2 * this.radius; }
-        //this.y = pcmY - 2 * this.radius;
-        player.y += 2 * this.radius;
+        if ( posOK(this.x, this.y, player) ) { this.y = pcmY - 2 * this.radius; }
+        player.y += this.radius;
       }
       if(player.isMovingDown  === true) { 
         this.dy = player.dy;
         this.dx = Math.floor(Math.random() * 3 + 1);
-        //this.y += this.dy;
-        if ( posOK(this.x, this. y, player) ) { this.y = pcmY + 2 * this.radius; }
-        //this.y = pcmY + 2 * this.radius;
-        player.y -= 2 * this.radius;
+        if ( posOK(this.x, this.y, player) ) { this.y = pcmY + 2 * this.radius; }
+        player.y -= this.radius;
       }
     }
   }
   
+  // DGG: Código usado para pintar el pcm en las etapas de desarrollo de las colisiones
+
   ctx.beginPath();
   ctx.arc(pcmX, pcmY, 3, 0, Math.PI * 2, true);
   ctx.closePath();
@@ -171,12 +133,12 @@ Ball.prototype.collisionPoint = function(player){
 }
 
 function restartGame() {
-  player1.x = canvas.width/6 - x/4;
+  player1.x = canvas.width/4;
   player1.y = canvas.height/2 - y/2;
-  player2.x = canvas.width - (canvas.width/6 + x/4 + 100);
+  player2.x = canvas.width - (canvas.width/4 + x);
   player2.y = canvas.height/2 - y/2;
-  ball.dx = Math.floor(Math.random() * 5 + 1);
-  ball.dy = Math.floor(Math.random() * 5 + 1);
+  ball.dx = Math.floor(Math.random() * 8 - 4); // DGG: Velocidad aleatoria entre -4 y 4
+  ball.dy = Math.floor(Math.random() * 8 - 4);
   ball.x = canvas.width/2;
   ball.y = canvas.height/2;
 }
@@ -190,27 +152,23 @@ Ball.prototype.drawScore = function() {
 }
 
 Ball.prototype.goal = function() {
-  //if (this.x <= 52) {
   var hitSound = new Audio('./sound/sonic-goal.mp3');  
+  
   if (this.x <= 2 * this.radius) {
-    //console.log('P2 GOAL!!!');
     hitSound.play();
     goalsP2 ++;
     restartGame();
   }
-  //else if (this.x >= canvas.width - 52) {
-    else if (this.x >= canvas.width - 2 * this.radius) {
-    //console.log('P1 GOAL!!!');
+  else if (this.x >= canvas.width - 2 * this.radius) {
+    hitSound.play();
     goalsP1 ++;
     restartGame();
   }
-  //console.log('P1: ' + goalsP1 + ' - P2: ' + goalsP2);
 }
 
 Ball.prototype.animateImg = function() {
   if (frames % 2 === 0) {
     this.img.frameIndex += 1;
-
     // Si el frame es el último, se vuelve al primero
     if (this.img.frameIndex > 9) this.img.frameIndex = 0;
   }

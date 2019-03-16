@@ -1,4 +1,4 @@
-function Player(width, height, x, y, color, dx, dy, rutaImg) {
+function Player(width, height, x, y, dx, dy, rutaImg) {
   this.isMovingRight = false;
   this.isMovingLeft = false;
   this.isMovingUp = false;
@@ -7,7 +7,6 @@ function Player(width, height, x, y, color, dx, dy, rutaImg) {
   this.height = height;
   this.x = x;
   this.y = y;
-  this.color = color;
   this.dx = dx;
   this.dy = dy;
   this.img = new Image();
@@ -19,15 +18,6 @@ function Player(width, height, x, y, color, dx, dy, rutaImg) {
 }
 
 Player.prototype.draw = function() {
-  /*ctx.beginPath();
-  //ctx.fillStyle = this.color;
-  //ctx.fillRect(this.x, this.y, this.width, this.height)
-
-  //var policeImg = new Image(); 
-	//policeImg.src = './images/policeAnimation/1.png';
-  ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-  ctx.closePath();*/
-
   ctx.drawImage(
     this.img,
     this.img.frameIndex * Math.floor(this.img.width / this.img.frames),
@@ -43,7 +33,6 @@ Player.prototype.draw = function() {
   this.animateImg();
 }
 
-//function movePlayer(hit) {
 function listenKeys() {
   document.addEventListener('keydown', function(e) {
     var myKeyCode  =  e.keyCode || e.which || 0;
@@ -118,7 +107,7 @@ Player.prototype.borderHit = function() {
   if (this.x + this.width >= canvas.width - this.dx && this.isMovingRight === true) { this.x = canvas.width - this.width; }
 }
 
-Player.prototype.otherPlayerHit = function(otherPlayer) { // DGG: ToDo, controlar los bordes del canvas
+Player.prototype.otherPlayerHit = function(otherPlayer) {
   if (this.x + this.width  > otherPlayer.x && this.x < otherPlayer.x + otherPlayer.width &&
       this.y + this.height > otherPlayer.y && this.y < otherPlayer.y + otherPlayer.height) {
     ///console.log('CHOQUE');
@@ -134,27 +123,12 @@ Player.prototype.otherPlayerHit = function(otherPlayer) { // DGG: ToDo, controla
     }
     if(this.isMovingLeft  === true) { 
       this.x = otherPlayer.x + this.width;
-      //this.x        += 1*this.dx;
-      //otherPlayer.x -= 1*this.dx;
-      
-      //this.dx = 0; // DGG: Anulamos velocidades
-      //otherPlayer.dx = 0; // DGG: Anulamos velocidades
     }
     if(this.isMovingUp    === true) { 
       this.y = otherPlayer.y + this.height;
-      //this.y        += 1*this.dy;
-      //otherPlayer.y -= 1*this.dy;
-      
-      //this.dy = 0; // DGG: Anulamos velocidades
-      //otherPlayer.dy = 0; // DGG: Anulamos velocidades
     }
     if(this.isMovingDown  === true) { 
       this.y = otherPlayer.y - this.height;
-      //this.y        -= 1*this.dy;
-      //otherPlayer.y += 1*this.dy;
-      
-      //this.dy = 0; // DGG: Anulamos velocidades
-      //otherPlayer.dy = 0; // DGG: Anulamos velocidades
     }
   }
 }
@@ -165,7 +139,7 @@ Player.prototype.ballHit = function(ball) {
   
     if(this.isMovingRight === true) { 
       this.x = ball.x + ball.radius - this.width - this.dx;
-      ball.dx *= -1; //0,5
+      ball.dx *= -1;
       //console.log('SLOW!!');
     }
     if(this.isMovingLeft  === true) { 
@@ -215,4 +189,4 @@ function hitPlayers(player1, player2) {
  return hit;
 }
 
-// Introducir rozamientos en los movimientos!!!
+// Mejora: Introducir rozamientos en los movimientos!!!

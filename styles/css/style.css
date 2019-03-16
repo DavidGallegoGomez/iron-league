@@ -12,7 +12,6 @@ html {
 }
 body {
   /*min-height: 100%;*/
-  
   overflow: hidden;
   margin: 0;
   padding: 0;
@@ -28,7 +27,6 @@ body {
 
 .beginGame {
   diplay: flex;
-  /*display: none;*/
 }
 
 .controls {
@@ -58,7 +56,6 @@ body {
 }
 
 .myGame {
-  /*display: none;*/
   display: flex;
   justify-content: center;
   align-items: center;
@@ -66,7 +63,7 @@ body {
 }
 
 canvas {
-  border: 2px solid black;
+  /*border: 2px solid black;*/
   width: calc( 100% - 50px );
   height: calc( 100vh - 50px );
 }
@@ -88,7 +85,6 @@ body button {
 }
 
 .endGame {
-  /*display: none;*/
   display: flex;
   color: black;
   justify-content: center;
@@ -103,26 +99,18 @@ body button {
 .endGame h1 {
   font-size: 50px;
   text-align: center;
-  /*width: 100%;
-  height: 25%;*/
 }
 
 .endGame h2 {
   font-size: 30px;
   text-align: center;
-  /*width: 100%;
-  height: 25%;*/
 }
 
 .is-hidden {
-  /*opacity: 0;*/
-  /*pointer-events: none;*/
   display: none;
 }
 
 .is-shown {
-  /*opacity: 0;*/
-  /*pointer-events: none;*/
   display: flex;
   justify-content: center;
   align-items: center;
