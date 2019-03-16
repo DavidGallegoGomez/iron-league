@@ -4,7 +4,7 @@ function Clock() {
 };
 
 function stopClock() {
-  if (time === 90) { // DGG: Duración oficial: 90 seg;
+  if (time === 30) { // DGG: Duración oficial: 90 seg;
     clearInterval(intervalClock);
     var hitSound = new Audio('./sound/buzzer.mp3');
     hitSound.play();
