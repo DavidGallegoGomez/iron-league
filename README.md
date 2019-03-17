@@ -16,4 +16,4 @@
 - Trello: <a href="https://trello.com/b/w6pYmiZQ/iron-league">Tablero público</a>
 - Repositorio: <a href="https://github.com/DavidGallegoGomez/iron-league">GitHub</a>
 - Juego: <a href="https://davidgallegogomez.github.io/iron-league/">Iron-League</a>
-- Presentación: <a href="https://davidgallegogomez.github.io/iron-league/">ppt</a>
+- Presentación: <a href="https://github.com/DavidGallegoGomez/iron-league/blob/master/IronLeague.pptx">IronLeague.pptx</a>
