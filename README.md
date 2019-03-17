@@ -11,3 +11,9 @@
 - Gestión y presentación de las puntuaciones.
 - Autoplay de la música.
 - Sincronización de reloj de bucle de juego y tiempo real de juego.
+
+## Enlaces de interés:
+- Trello: <a href="https://trello.com/b/w6pYmiZQ/iron-league">Tablero público</a>
+- Repositorio: <a href="https://github.com/DavidGallegoGomez/iron-league">GitHub</a>
+- Juego: <a href="https://davidgallegogomez.github.io/iron-league/">Iron-League</a>
+- Presentación: <a href="https://davidgallegogomez.github.io/iron-league/">ppt</a>
